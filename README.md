@@ -10,3 +10,4 @@ Bem-vindo ao meu perfil! Aqui estão algumas estatísticas sobre minha atividade
 ## Contribuições Recorrentes
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=joubertgruna&theme=radical)
 
+![logo-OYJ34ERC](https://github.com/user-attachments/assets/b6e96286-d3ca-46b0-b427-9a9be4042fc8)
