@@ -38,3 +38,11 @@ Aqui estão os últimos repositórios que foram atualizados recentemente:
 - [PersonalNutri-webapp]([https://github.com/joubertgruna/CRUD---API-REST](https://github.com/joubertgruna/PersonalNutri.git))
 
 ![logo-OYJ34ERC](https://github.com/user-attachments/assets/b6e96286-d3ca-46b0-b427-9a9be4042fc8)
+
+## Estatísticas do GitHub
+
+Total de commits: 46
+Últimos repositórios atualizados:
+- PersonalNutri
+- joubertgruna
+- voe-webapp
