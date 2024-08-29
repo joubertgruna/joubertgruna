@@ -1,4 +1,4 @@
-[# Olá! Eu sou o Joubert 👋
+# Olá! Eu sou o Joubert 👋
 
 Bem-vindo ao meu perfil! Aqui estão algumas estatísticas sobre minha atividade no GitHub.
 
@@ -24,13 +24,17 @@ Bem-vindo ao meu perfil! Aqui estão algumas estatísticas sobre minha atividade
 - [Moment.js](https://momentjs.com/)
 - [jQuery](https://jquery.com/)
 
-### Estatísticas do GitHub
+## Estatísticas do GitHub
 
 ### Total de Commits
 ![Commits Count](https://img.shields.io/badge/Total%20Commits-37-brightgreen?style=flat-square&logo=github)
 
 ### Últimos Repositórios Atualizados
-![Recent Repos](https://img.shields.io/badge/Recent%20Repos-joubertgruna%2C%20voe--webapp%2C%20CRUD---API--REST-blue?style=flat-square&logo=github)
+
+Aqui estão os últimos repositórios que foram atualizados recentemente:
+
+- [joubertgruna](https://github.com/joubertgruna)
+- [voe-webapp](https://github.com/joubertgruna/voe-webapp)
+- [CRUD---API-REST](https://github.com/joubertgruna/CRUD---API-REST)
 
 ![logo-OYJ34ERC](https://github.com/user-attachments/assets/b6e96286-d3ca-46b0-b427-9a9be4042fc8)
-](https://github.com/joubertgruna/PersonalNutri.git)
