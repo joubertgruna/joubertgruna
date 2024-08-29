@@ -1,4 +1,4 @@
-# Olá! Eu sou o Joubert 👋
+[# Olá! Eu sou o Joubert 👋
 
 Bem-vindo ao meu perfil! Aqui estão algumas estatísticas sobre minha atividade no GitHub.
 
