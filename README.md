@@ -10,7 +10,21 @@ Bem-vindo ao meu perfil! Aqui estão algumas estatísticas sobre minha atividade
 ## Contribuições Recorrentes
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=joubertgruna&theme=radical)
 
-## Estatísticas do GitHub
+## Frameworks e Bibliotecas Mais Usados
+
+### Frameworks
+- [React](https://reactjs.org/)
+- [Node.js](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [Bootstrap](https://getbootstrap.com/)
+
+### Bibliotecas
+- [Axios](https://axios-http.com/)
+- [Lodash](https://lodash.com/)
+- [Moment.js](https://momentjs.com/)
+- [jQuery](https://jquery.com/)
+
+### Estatísticas do GitHub
 
 ### Total de Commits
 ![Commits Count](https://img.shields.io/badge/Total%20Commits-37-brightgreen?style=flat-square&logo=github)
