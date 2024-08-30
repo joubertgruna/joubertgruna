@@ -54,3 +54,11 @@ Total de commits: 47
 - voe-webapp
 - PersonalNutri
 - joubertgruna
+
+## Estatísticas do GitHub
+
+Total de commits: 47
+Últimos repositórios atualizados:
+- voe-webapp
+- PersonalNutri
+- joubertgruna
