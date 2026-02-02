@@ -3,12 +3,12 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - master
       - dev
       - qa
   pull_request:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 env:
@@ -144,7 +144,7 @@ jobs:
   production-deploy:
     name: Deploy to Production
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout code
@@ -190,7 +190,7 @@ jobs:
             
             # Atualizar código
             cd /var/www/cemig-dashboard
-            git fetch origin main
+            git fetch origin master
             git reset --hard origin/main
             
             # Deploy com Docker Compose
