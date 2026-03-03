@@ -1,0 +1,103 @@
+# ✅ E2E TEST - 9 TESTES RÁPIDOS
+
+## 🧪 TESTES A EXECUTAR
+
+### 1️⃣ LOGIN ✅
+```
+URL: http://localhost:5173
+Email: teste_e2e_001@email.com
+Senha: Test@123456
+→ Deve redirecionar para /feed
+```
+
+### 2️⃣ FEED CARREGA ✅
+```
+URL: http://localhost:5173/feed
+F12 → Cmd+Shift+M → iPhone 12 Pro
+→ Grid com items, imagens, categorias
+```
+
+### 3️⃣ SWIPE DIREITA ⭐
+```
+Action: Arrastar item para DIREITA (100px+)
+Expected: ♥ Verde aparece, item sai, POST /api/likes
+→ CRÍTICO: Deve funcionar!
+```
+
+### 4️⃣ SWIPE ESQUERDA ⭐
+```
+Action: Arrastar item para ESQUERDA (100px+)
+Expected: ✗ Vermelho aparece, item sai, DELETE /api/likes
+→ CRÍTICO: Deve funcionar!
+```
+
+### 5️⃣ CLICK NORMAL ✅
+```
+Action: Tap rápido em um item (sem arrastar)
+Expected: Abre /items/{id} com detalhe grande
+```
+
+### 6️⃣ VOLTAR ✅
+```
+Action: Clicar volta ou abas Feed
+Expected: Volta para /feed, items antigos sumiram
+```
+
+### 7️⃣ MEUS ITENS ✅
+```
+URL: http://localhost:5173/my-items
+Expected: Mostra items criados por você
+```
+
+### 8️⃣ MATCHES ✅
+```
+URL: http://localhost:5173/matches
+Expected: Lista de matches ou "Nenhum"
+```
+
+### 9️⃣ PROFILE ✅
+```
+URL: http://localhost:5173/profile
+Expected: Mostra avatar, nome, bio, cidade
+```
+
+---
+
+## 📊 CHECKLIST RÁPIDO
+
+```
+[ ] 1. Login OK
+[ ] 2. Feed OK
+[ ] 3. Swipe Direita OK ⭐
+[ ] 4. Swipe Esquerda OK ⭐
+[ ] 5. Click Normal OK
+[ ] 6. Voltar OK
+[ ] 7. Meus Itens OK
+[ ] 8. Matches OK
+[ ] 9. Profile OK
+
+RESULTADO: ___/9 ✅
+```
+
+---
+
+## 🐛 BUGS?
+
+Se encontrar algo errado:
+1. Screenshot (Cmd+Shift+4)
+2. Copie erro do console
+3. Anote em: /docs/E2E_TESTING_MANUAL.md
+
+---
+
+## ⏱️ DURAÇÃO
+
+**Total:** 30 minutos  
+**Por teste:** 2-3 minutos  
+**Buffer:** 8 minutos
+
+---
+
+**Próximo:** Se OK → Lightbox (30 min)
+
+---

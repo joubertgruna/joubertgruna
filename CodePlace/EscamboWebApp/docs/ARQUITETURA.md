@@ -1,0 +1,134 @@
+# 🏗️ Diagrama de Arquitetura – Escambo
+
+## Visão Geral
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        CLIENTE (Browser/PWA)                     │
+│                                                                  │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │              Vue.js 3 + Bootstrap 5 + Vite               │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌─────────┐ ┌────────────┐   │   │
+│  │  │  Router   │ │  Pinia   │ │  Axios  │ │ Socket.io  │   │   │
+│  │  └──────────┘ └──────────┘ └─────────┘ └────────────┘   │   │
+│  │  ┌──────────────────────────────────────────────────┐    │   │
+│  │  │        Service Worker (Workbox) + Cache           │    │   │
+│  │  └──────────────────────────────────────────────────┘    │   │
+│  └──────────────────────────────────────────────────────────┘   │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+                    HTTPS / WSS
+                           │
+┌──────────────────────────▼──────────────────────────────────────┐
+│                     AWS CLOUD (Terraform)                        │
+│                                                                  │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │                     CloudFront (CDN)                        │ │
+│  │            Assets estáticos + Cache de borda               │ │
+│  └──────────────────────────┬─────────────────────────────────┘ │
+│                              │                                   │
+│  ┌───────────────────────────┴────────────────────────────────┐ │
+│  │                        VPC                                  │ │
+│  │                                                             │ │
+│  │  ┌─── Subnet Pública ────────────────────────────────────┐ │ │
+│  │  │                                                        │ │ │
+│  │  │  ┌──────────────────────────────────────────────────┐  │ │ │
+│  │  │  │              EC2 (Application Server)            │  │ │ │
+│  │  │  │                                                  │  │ │ │
+│  │  │  │  ┌────────────────────────────────────────────┐  │  │ │ │
+│  │  │  │  │         Node.js + Express (API)            │  │  │ │ │
+│  │  │  │  │                                            │  │  │ │ │
+│  │  │  │  │  ┌──────────┐  ┌──────────┐  ┌─────────┐  │  │  │ │ │
+│  │  │  │  │  │Controllers│  │ Services │  │  Repos  │  │  │  │ │ │
+│  │  │  │  │  └──────────┘  └──────────┘  └─────────┘  │  │  │ │ │
+│  │  │  │  │  ┌──────────┐  ┌──────────┐  ┌─────────┐  │  │  │ │ │
+│  │  │  │  │  │Middlewares│  │ Sockets  │  │  Utils  │  │  │  │ │ │
+│  │  │  │  │  └──────────┘  └──────────┘  └─────────┘  │  │  │ │ │
+│  │  │  │  └────────────────────────────────────────────┘  │  │ │ │
+│  │  │  └──────────────────────────────────────────────────┘  │ │ │
+│  │  └────────────────────────────────────────────────────────┘ │ │
+│  │                                                             │ │
+│  │  ┌─── Subnet Privada ────────────────────────────────────┐ │ │
+│  │  │                                                        │ │ │
+│  │  │  ┌──────────────────────────────────────────────────┐  │ │ │
+│  │  │  │            RDS MySQL (Database)                  │  │ │ │
+│  │  │  │                                                  │  │ │ │
+│  │  │  │  users │ items │ photos │ likes │ matches │ ...  │  │ │ │
+│  │  │  └──────────────────────────────────────────────────┘  │ │ │
+│  │  └────────────────────────────────────────────────────────┘ │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │                     S3 Bucket                               │ │
+│  │              Armazenamento de imagens/fotos                 │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │                    IAM Roles & Policies                     │ │
+│  │            EC2 → S3 | EC2 → RDS | Deploy roles             │ │
+│  └────────────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+## Fluxo de Requisições
+
+```
+1. Usuário acessa o PWA (browser ou app instalado)
+       │
+2. Service Worker intercepta requisições
+       │
+       ├── Cache hit? → Retorna do cache (offline-first)
+       │
+       └── Cache miss? → Requisição para API
+                │
+3. CloudFront (CDN)
+       │
+       ├── Asset estático? → Retorna do edge cache
+       │
+       └── API request? → Encaminha para EC2
+                │
+4. EC2 / Node.js + Express
+       │
+       ├── Middleware de autenticação (JWT)
+       │
+       ├── Controller → Service → Repository
+       │
+       ├── Acessa RDS MySQL (dados)
+       │
+       └── Acessa S3 (imagens)
+                │
+5. Resposta retorna ao cliente
+       │
+6. Service Worker armazena em cache (se aplicável)
+```
+
+## Fluxo do Chat (WebSocket)
+
+```
+Cliente A                    Servidor                    Cliente B
+   │                            │                            │
+   ├── connect (Socket.io) ────▶│◀──── connect (Socket.io) ──┤
+   │                            │                            │
+   ├── join room (matchId) ────▶│◀──── join room (matchId) ──┤
+   │                            │                            │
+   ├── send message ───────────▶│                            │
+   │                            ├── save to DB (messages) ──▶│
+   │                            ├── emit to room ───────────▶│
+   │                            │                            │
+   │                            │◀──── send message ──────────┤
+   │◀──── emit to room ────────┤── save to DB (messages)     │
+   │                            │                            │
+```
+
+## Decisões de Arquitetura
+
+| Decisão | Escolha | Justificativa |
+|---------|---------|---------------|
+| Arquitetura | Monolito Modular | Simplicidade para MVP, fácil migração futura |
+| Autenticação | JWT (stateless) | Escalável, sem sessão no servidor |
+| Real-time | Socket.io | Compatível com fallback, fácil de usar |
+| Upload | Multer → S3 | Upload direto do servidor para S3 |
+| Cache | Service Worker + HTTP Cache | Performance + offline |
+| DB | MySQL gerenciado (RDS) | Confiável, backups automáticos |
+| CDN | CloudFront | Latência baixa, integração com S3 |
+| IaC | Terraform | Multi-cloud, state management |

@@ -1,0 +1,146 @@
+# ✅ PRÓXIMA AÇÃO: 3 PASSOS SIMPLES
+
+## 🎯 AGORA (10:00 - 10:30)
+
+### PASSO 1: ABRIR E2E TESTING
+```
+Arquivo: /E2E_EXECUTION.md
+
+OU (mais rápido):
+Arquivo: /E2E_QUICK.txt
+```
+
+### PASSO 2: FAZER 9 TESTES
+```
+1. Login (2 min)
+2. Feed Carrega (2 min)
+3. Swipe Direita ⭐ (3 min)
+4. Swipe Esquerda ⭐ (3 min)
+5. Click Normal (2 min)
+6. Voltar (2 min)
+7. Meus Itens (2 min)
+8. Matches (2 min)
+9. Profile (2 min)
+
+Tempo Total: 22 min + Buffer 8 min = 30 min
+```
+
+### PASSO 3: DOCUMENTAR RESULTADOS
+```
+Se tudo passou:
+✅ E2E Testing CONCLUÍDO
+→ Próximo: Lightbox (10:30 - 11:00)
+
+Se encontrou bug:
+❌ Documentar em /docs/E2E_TESTING_MANUAL.md
+→ Continuar anyway para Lightbox
+```
+
+---
+
+## 📱 SETUP (30 segundos)
+
+```
+1. http://localhost:5173
+2. F12 (DevTools)
+3. Cmd+Shift+M (Mobile)
+4. iPhone 12 Pro
+5. Pronto!
+```
+
+---
+
+## 🧪 TESTES CRÍTICOS
+
+### TESTE 3: Swipe Direita ⭐
+```
+Fazer: Arrastar item para DIREITA (100px+)
+Esperado: ♥ Verde aparece, item sai, POST /api/likes 201
+Se falhar: Screenshot + console error + anote
+Se passar: Marque [✅] no checklist
+```
+
+### TESTE 4: Swipe Esquerda ⭐
+```
+Fazer: Arrastar item para ESQUERDA (100px+)
+Esperado: ✗ Vermelho aparece, item sai, DELETE /api/likes 200
+Se falhar: Screenshot + console error + anote
+Se passar: Marque [✅] no checklist
+```
+
+---
+
+## ⏱️ TIMELINE
+
+```
+10:00 - 10:05  TESTE 1-2 (Setup + Login + Feed)
+10:05 - 10:10  TESTE 3 (Swipe Direita) ⭐
+10:10 - 10:15  TESTE 4 (Swipe Esquerda) ⭐
+10:15 - 10:20  TESTE 5-6 (Click + Voltar)
+10:20 - 10:25  TESTE 7-9 (Meus Itens, Matches, Profile)
+10:25 - 10:30  Documentar bugs + Buffer
+
+TOTAL: Exatamente 30 minutos
+```
+
+---
+
+## ✅ SUCESSO = ?
+
+```
+✓ Testes 3 e 4 (Swipe) funcionam
+✓ Sem console errors críticos
+✓ API calls corretas
+✓ Performance OK (<500ms)
+
+→ Ir para Lightbox (próxima feature)
+```
+
+---
+
+## 📝 SE TIVER BUG
+
+```
+1. Print screenshot (Cmd+Shift+4)
+2. Copie erro do console
+3. Anote o teste número
+4. Documente em /docs/E2E_TESTING_MANUAL.md
+5. Continua pros próximos testes anyway
+```
+
+---
+
+## 📖 ARQUIVO A USAR
+
+```
+⭐ RECOMENDADO: /E2E_EXECUTION.md
+   └─ Mais detalhado, checklist completo
+
+OU (se quiser rápido):
+⭐ /E2E_QUICK.txt
+   └─ Ultra-resumido, 9 testes em 40 linhas
+```
+
+---
+
+## 🚀 VÁ AGORA!
+
+```
+1. Abra E2E_EXECUTION.md
+2. Siga TESTE 1 até TESTE 9
+3. Marque resultados
+4. Volte aqui quando terminar
+5. Próximo: Lightbox!
+```
+
+---
+
+**Status:** ✅ PRONTO PARA COMEÇAR  
+**Duração:** 30 minutos  
+**Próximo:** Lightbox (11:00)  
+
+---
+
+🎯 **GO GO GO!** 🎯
+
+---
