@@ -1,0 +1,95 @@
+@use 'variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: $escambo-light;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+// Escambo button overrides
+.btn-escambo {
+  background-color: $escambo-primary;
+  border-color: $escambo-primary;
+  color: white;
+  border-radius: 25px;
+  padding: 10px 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $escambo-secondary;
+    border-color: $escambo-secondary;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+  }
+}
+
+.btn-escambo-outline {
+  background-color: transparent;
+  border: 2px solid $escambo-primary;
+  color: $escambo-primary;
+  border-radius: 25px;
+  padding: 10px 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $escambo-primary;
+    color: white;
+  }
+}
+
+// Card style
+.escambo-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+// Animations
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.3s ease;
+}
+.slide-up-enter-from {
+  transform: translateY(20px);
+  opacity: 0;
+}
+.slide-up-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
