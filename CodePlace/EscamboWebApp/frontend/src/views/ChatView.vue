@@ -23,6 +23,7 @@
         :key="msg.id"
         :message="msg"
         :current-user-id="authStore.user?.id"
+        @retry="() => handleRetry(msg)"
       />
 
       <p v-if="!chatStore.loading && chatStore.messages.length === 0" class="text-center text-muted py-4">
@@ -115,6 +116,19 @@ const handleTyping = (typing) => {
     typingTimer = setTimeout(() => { isTyping.value = false; }, 2000);
   } else {
     isTyping.value = false;
+  }
+};
+
+const handleRetry = async (message) => {
+  if (message.status === 'failed') {
+    try {
+      chatStore.updateMessageStatus(message.id, 'pending');
+      const retryCount = (message.retryCount || 0) + 1;
+      await chatStore.retryFailedMessage(matchId.value, message.content, retryCount, message.id);
+      scrollToBottom();
+    } catch (err) {
+      console.error('Retry failed:', err);
+    }
   }
 };
 </script>
