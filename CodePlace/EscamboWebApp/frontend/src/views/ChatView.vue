@@ -45,6 +45,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useChatStore } from '@/stores/chat';
 import { useMatchesStore } from '@/stores/matches';
 import { useSocket } from '@/composables/useSocket';
+import { useNotification } from '@/composables/useNotification';
 import ChatBubble from '@/components/chat/ChatBubble.vue';
 import ChatInput from '@/components/chat/ChatInput.vue';
 
@@ -53,6 +54,7 @@ const authStore = useAuthStore();
 const chatStore = useChatStore();
 const matchesStore = useMatchesStore();
 const { joinChat, leaveChat, sendMessage: socketSend, onMessage, emitTyping } = useSocket();
+const { showError, showSuccess } = useNotification();
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 const BASE_URL = API_URL.replace('/api', '');
@@ -103,9 +105,19 @@ onUnmounted(() => {
 watch(() => chatStore.messages.length, scrollToBottom);
 
 const handleSend = async (content) => {
-  await chatStore.sendMessage(matchId.value, content);
-  socketSend(matchId.value, content);
-  scrollToBottom();
+  try {
+    console.log('📤 Enviando mensagem:', { matchId: matchId.value, content });
+    await chatStore.sendMessage(matchId.value, content);
+    console.log('✅ Mensagem enviada com sucesso');
+    showSuccess('Mensagem enviada!');
+    socketSend(matchId.value, content);
+    scrollToBottom();
+  } catch (err) {
+    const errorMsg = err.response?.data?.message || err.message || 'Erro desconhecido';
+    console.error('❌ Erro ao enviar mensagem:', err);
+    console.error('Detalhes:', err.response?.data || err.message);
+    showError(errorMsg, 'Erro ao enviar');
+  }
 };
 
 const handleTyping = (typing) => {
