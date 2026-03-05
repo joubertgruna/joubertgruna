@@ -37,7 +37,7 @@ onMounted(() => {
 });
 
 const goToMatch = (match) => {
-  router.push(`/match/${match.id}`);
+  router.push(`/matches/${match.id}`);
 };
 </script>
 
