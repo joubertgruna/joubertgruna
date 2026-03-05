@@ -10,12 +10,10 @@ class ChatService {
       throw error;
     }
 
-    // Check if ad was shown (required before chat)
+    // Auto-mark ad as shown when user enters chat (no longer requires manual ad viewing)
     const match = await matchRepository.findById(matchId);
     if (!match.ad_shown) {
-      const error = new Error('É necessário visualizar o anúncio antes de acessar o chat.');
-      error.statusCode = 403;
-      throw error;
+      await matchRepository.updateAdShown(matchId);
     }
 
     // Mark messages as read
@@ -32,11 +30,10 @@ class ChatService {
       throw error;
     }
 
+    // Auto-mark ad as shown when user sends message (no longer requires manual ad viewing)
     const match = await matchRepository.findById(matchId);
     if (!match.ad_shown) {
-      const error = new Error('É necessário visualizar o anúncio antes de enviar mensagens.');
-      error.statusCode = 403;
-      throw error;
+      await matchRepository.updateAdShown(matchId);
     }
 
     return messageRepository.create({
