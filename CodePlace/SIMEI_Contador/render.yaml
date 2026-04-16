@@ -1,0 +1,43 @@
+# render.yaml — Configuração de deploy do SIMEI Contador no Render
+# Documentação: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: simei-api
+    runtime: node
+    rootDir: apps/api
+    plan: free
+
+    buildCommand: npm install && node db/migrate.js
+    startCommand: node src/index.js
+
+    healthCheckPath: /health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+
+      # ── Banco de dados ──────────────────────────────────────────
+      # Cole a "Service URI" do Aiven (mysql://user:pass@host:port/db?ssl-mode=REQUIRED)
+      - key: DATABASE_URL
+        sync: false          # Preencher manualmente no painel do Render
+
+      # ── JWT ─────────────────────────────────────────────────────
+      - key: JWT_SECRET
+        generateValue: true  # Render gera automaticamente
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+
+      # ── GitHub Models (Agente IA) ────────────────────────────────
+      # Personal Access Token do GitHub (github.com/settings/tokens)
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_MODEL
+        value: gpt-4o-mini
+
+      # ── CORS ────────────────────────────────────────────────────
+      # URL do seu frontend no Vercel (ex: https://simei.vercel.app)
+      - key: ALLOWED_ORIGINS
+        sync: false

@@ -1,0 +1,26 @@
+{
+  "name": "simei-contador",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistema de contabilidade para empresas no Simples Nacional",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "docker-compose up",
+    "dev:web": "yarn workspace web dev",
+    "dev:api": "yarn workspace api dev",
+    "build": "yarn workspaces run build",
+    "test": "yarn workspaces run test",
+    "db:migrate": "yarn workspace api db:migrate",
+    "db:seed": "yarn workspace api db:seed",
+    "docker:up": "docker-compose up --build",
+    "docker:down": "docker-compose down",
+    "lint": "yarn workspaces run lint"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "SIMEI Contador",
+  "license": "MIT"
+}

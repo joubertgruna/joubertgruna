@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: simei_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: simei_db
+      MYSQL_USER: simei_user
+      MYSQL_PASSWORD: simei_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - simei_network
+
+  # Backend API (Node.js/Express)
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: simei_api
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DATABASE_URL: mysql://simei_user:simei_password@db:3306/simei_db
+      JWT_SECRET: your-jwt-secret-change-in-production
+      JWT_REFRESH_SECRET: your-refresh-secret-change-in-production
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_MODEL: ${GITHUB_MODEL:-gpt-4o-mini}
+    volumes:
+      - ./apps/api:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - simei_network
+
+  # Frontend (Next.js PWA)
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: simei_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://192.168.2.179:3001
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - api
+    networks:
+      - simei_network
+
+volumes:
+  mysql_data:
+
+networks:
+  simei_network:
+    driver: bridge
